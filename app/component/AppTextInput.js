@@ -7,12 +7,14 @@ import Screen from './Screen';
 import defaultStyles from '../config/styles';
 
 
-function AppTextInput({icon,...otherprops}) {
+function AppTextInput({icon,width='100%',...otherprops}) {
     return (
         
-       <View style={styles.container}>
+       <View style={[styles.container, {width} ]}>
            <MaterialCommunityIcons name={icon} size={20} color={defaultStyles.colors.medium} style={styles.icon}/>
-           <TextInput style={defaultStyles.text} {...otherprops} />
+           <TextInput
+           placeholderTextColor={defaultStyles.colors.medium}
+           style={defaultStyles.text} {...otherprops} />
 
        </View>
       
@@ -25,7 +27,6 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         padding:15,
         marginVertical:10,
-        width:'100%'
     },
    
     icon:{

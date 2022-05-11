@@ -1,16 +1,18 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View } from 'react-native';
 import colors from '../config/colors';
+import { Image } from 'react-native-expo-image-cache';
 import ListItems from '../component/ListItems';
 
-function ListingDetailScreen(props) {
+function ListingDetailScreen({route}) {
+    const listing = route.params;
     return (
        <View>
            
-           <Image style={styles.image} source={require("../assets/jacket.jpg")}/>
+           <Image style={styles.image} uri={{uri: listing.images[0].url}} tint='light' preview={{uri:listing.images[0].thumbnailUrl}}/>
            <View style={styles.text}>
-           <Text style={styles.title}>Red jacket for sale</Text>
-           <Text style={styles.subTitle}>$100</Text>
+           <Text style={styles.title}>{listing.title}</Text>
+           <Text style={styles.subTitle}>${listing.price}</Text>
            </View>
          
          <View style={styles.container}>
@@ -18,6 +20,7 @@ function ListingDetailScreen(props) {
            image={require("../assets/mosh.jpg")}
            title="Leonel Foma"
            subtitle="10 Listings"
+           showChevrons={false}
             /></View>
        </View>
     );

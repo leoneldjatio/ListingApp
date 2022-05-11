@@ -5,6 +5,7 @@ import ListItems from '../component/ListItems';
 import colors from '../config/colors';
 import MenuIcons from '../component/MenuIcons';
 import ListItemSeparator from '../component/ListItemSeparator';
+import useAuth from '../auth/useAuth';
 
 
 const listDetails =[
@@ -22,7 +23,8 @@ const listIcons =[
         icon:{
             name:"format-list-bulleted",
             backgroundColor:colors.primary,
-        }
+        },
+        
         
     },
     {
@@ -31,17 +33,23 @@ const listIcons =[
         icon:{
             name:"email",
             backgroundColor:colors.secondary,
-        }
+        },
+        targetScreen:"Messages",
         
     },
 ]
-function MyAccountScreen(props) {
+
+
+function MyAccountScreen({navigation}) {
+    const {user,logOut} = useAuth();
+    
     return (
         <Screen style={styles.screen}>
           <View style={styles.container}>  
            <ListItems
-           title="Leonel Foma"
-           subtitle="leonelfoma@gmail.com"
+           showChevrons={true}
+           title={user.name}
+           subtitle={user.email}
            image={require('../assets/mosh.jpg')} 
            />
           </View>
@@ -52,11 +60,13 @@ function MyAccountScreen(props) {
             renderItem = {({item}) => ( <ListItems
 
                title={item.title}
+               onPress={()=>navigation.navigate(item.targetScreen) }
+               showChevrons={true}
                IconComponent= {<MenuIcons
                 name={item.icon.name}
                 size={50}
                 content="center"
-                backColor={item.icon.backgroundColor}
+                backgroundColor={item.icon.backgroundColor}
                 color={colors.white}
                 />}
                 />
@@ -68,12 +78,15 @@ function MyAccountScreen(props) {
            <View style={styles.container}>
             <ListItems
             title="Log Out"
+            onPress={()=>logOut()}
+            showChevrons={true}
             IconComponent={<MenuIcons
             name="logout"
             size={50}
-            backColor={colors.yellow}
+            backgroundColor={colors.yellow}
             content="center"
             color={colors.white}
+            
             
             />}
             
@@ -91,6 +104,8 @@ const styles = StyleSheet.create({
     backgroundColor:colors.white,
     marginTop:20,
     marginBottom:30,
+    
+    
     },
     screen:{
         backgroundColor:colors.lightGrey

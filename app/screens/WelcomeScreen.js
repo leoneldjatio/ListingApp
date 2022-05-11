@@ -6,7 +6,7 @@ import AppButton from '../component/AppButton';
 
 const image = require("../assets/background.jpg");
 const logo = require("../assets/logo-red.png");
-function WelcomeScreen(props) {
+function WelcomeScreen({navigation}) {
     return (
         <ImageBackground source={image} blurRadius={10} style={styles.background}>
 
@@ -15,8 +15,8 @@ function WelcomeScreen(props) {
         <Text style={styles.tagline}>Sell What You Don't Need</Text> 
         </View>
 
-        <View style={styles.buttonContainer}><AppButton  onPress={()=> console.log("tapped")} title="LOGIN" />
-        <AppButton onPress={()=> console.log("tapped")} color="secondary"  title="REGISTER"/>
+        <View style={styles.buttonContainer}><AppButton  onPress={()=>navigation.navigate("Login")} title="LOGIN" />
+        <AppButton onPress={()=> navigation.navigate("Register")} color="secondary"  title="REGISTER"/>
         </View>  
         </ImageBackground>
     );

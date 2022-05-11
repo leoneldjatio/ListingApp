@@ -1,15 +1,19 @@
 import React from 'react';
-import { View,Text, StyleSheet,Image} from 'react-native';
+import { View,Text, StyleSheet} from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { Image } from 'react-native-expo-image-cache';
 
 import colors from '../config/colors';
 
-function Card({title,subtitle,image}) {
+function Card({title,subtitle,imageUrl,onPress,thumbnailUrl}) {
     return (
+       <TouchableWithoutFeedback onPress={onPress}> 
        <View style={styles.card}>
-           <Image style={styles.image} source={image}/>
+           <Image style={styles.image} preview={{uri:thumbnailUrl}} uri={imageUrl} tint='light'/>
            <Text style={styles.title}>{title}</Text>
            <Text style={styles.subtitle}>{subtitle}</Text>      
        </View>
+      </TouchableWithoutFeedback> 
     );
 }
 const styles = StyleSheet.create({
